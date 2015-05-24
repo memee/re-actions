@@ -52,7 +52,8 @@ requires = [
 ]
 
 setup_requires = [
-    'nose'
+    'nose',
+    'Sphinx'
 ]
 
 tests_require = [
