@@ -33,7 +33,7 @@ setup(name='reactions',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
-      test_suite='pyramid_alchemy',
+      test_suite='reactions',
       install_requires=requires,
       entry_points="""\
       [paste.app_factory]
