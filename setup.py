@@ -1,10 +1,45 @@
 import os
+
 from setuptools import setup, find_packages
+from setuptools.command import test
+
 
 here = os.path.abspath(os.path.dirname(__file__))
 
 with open(os.path.join(here, 'README.rst')) as f:
     README = f.read()
+
+# prepare for monkey patching test command
+# to make nose work with `setup.py test`
+# see: http://goo.gl/kq9CBs
+test._test = test.test
+
+
+# Based on example at
+# https://github.com/0compute/makeenv/blob/master/setup.py
+class NoseTestCommand(test._test):
+
+    user_options = test._test.user_options + [
+        ("args=", "a", "Arguments to pass to nose"),
+    ]
+
+    def initialize_options(self):
+        test._test.initialize_options(self)
+        self.args = None
+
+    def finalize_options(self):
+        test._test.finalize_options(self)
+        self.args = self.args and self.args.strip().split() or []
+        self.test_suite = True
+
+    def run_tests(self):
+        try:
+            import nose
+        except ImportError:
+            raise Exception(
+                "You've tried to run command without nose installed")
+        nose.run_exit(argv=["nosetests"] + self.args)
+
 
 requires = [
     'pyramid',
@@ -14,6 +49,14 @@ requires = [
     'zope.sqlalchemy',
     'waitress',
     'cornice',
+]
+
+setup_requires = [
+    'nose'
+]
+
+tests_require = [
+    'nose'
 ]
 
 setup(name='reactions',
@@ -35,6 +78,10 @@ setup(name='reactions',
       zip_safe=False,
       test_suite='reactions',
       install_requires=requires,
+      setup_requires=setup_requires,
+      cmdclass={
+          'test': NoseTestCommand
+      },
       entry_points="""\
       [paste.app_factory]
       main = reactions:main
