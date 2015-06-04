@@ -9,4 +9,5 @@ script:
   # command to run tests
   - "python setup.py -q test"
   # build documentation
+  - "pip install Sphinx"
   - "sphinx-build -nW -c docs/ -b html docs docs/_build/html"
