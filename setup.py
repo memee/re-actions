@@ -53,7 +53,8 @@ requires = [
 
 setup_requires = [
     'nose',
-    'Sphinx'
+    'Sphinx',
+    'PasteScript',
 ]
 
 tests_require = [
