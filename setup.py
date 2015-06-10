@@ -2,7 +2,7 @@ import os
 
 from setuptools import setup, find_packages
 from setuptools.command import test
-from utils import setuptools_behave
+import setuptools_behave
 
 
 here = os.path.abspath(os.path.dirname(__file__))
