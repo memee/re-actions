@@ -2,6 +2,7 @@ import os
 
 from setuptools import setup, find_packages
 from setuptools.command import test
+from utils import setuptools_behave
 
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -53,13 +54,11 @@ requires = [
 
 setup_requires = [
     'nose',
+    'behave',
     'Sphinx',
     'PasteScript',
 ]
 
-tests_require = [
-    'nose'
-]
 
 setup(name='reactions',
       version=0.1,
@@ -82,7 +81,8 @@ setup(name='reactions',
       install_requires=requires,
       setup_requires=setup_requires,
       cmdclass={
-          'test': NoseTestCommand
+          'test': NoseTestCommand,
+          'behave_test': setuptools_behave.behave_test
       },
       entry_points="""\
       [paste.app_factory]
