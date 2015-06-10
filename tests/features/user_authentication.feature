@@ -3,11 +3,11 @@ Feature: Authentication of a user request
   every request invoked by my app end user
 
   Scenario Outline: Requests authentication
-    Given a request from <someuser> for any url
-    And the request has <sometoken> in the header
+    Given a request from {someuser} for any url
+    And the request has {sometoken} in the header
     When the request was sent
-    Then the request is <authenticated>
-    And the response has <somestatus>
+    Then the request is {authenticated}
+    And the response has "{somestatus}"
 
   Examples:
     | someuser     | sometoken  | authenticated  | somestatus  |

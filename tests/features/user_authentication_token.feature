@@ -11,4 +11,4 @@ Feature: Authentication of a end user
   Scenario: Invalid credentials
     Given a request with invalid username/email and password
     When the request was sent
-    Then the response should have "bad" status
+    Then the response should have "400" status

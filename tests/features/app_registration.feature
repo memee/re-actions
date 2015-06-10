@@ -15,7 +15,7 @@ Feature: Developer app registration
       |          | John       | Kovac     | m@m.com |
       | app1     | John       | Kovac     |         |
     When I post it to the app registration url
-    Then I should get a warning with a proper status
+    Then I should get a warning with a "400" status
 
   Scenario: Invalid data input
     Given app registration data
@@ -24,4 +24,4 @@ Feature: Developer app registration
       | app1     | John       | Kovac     | none    |
       | !!       | John       | Kovac     | some    |
     When I post it to the app registration url
-    Then I should get a warning with a proper status
+    Then I should get a warning with a "400" status
