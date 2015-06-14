@@ -88,6 +88,6 @@ setup(name='reactions',
       [paste.app_factory]
       main = reactions:main
       [console_scripts]
-      initialize_pyramid_alchemy_db = pyramid_alchemy.scripts.initializedb:main
+      initialize_reactions_db = reactions.scripts.initializedb:main
       """,
       paster_plugins=['pyramid'])
