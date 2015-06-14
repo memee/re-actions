@@ -58,3 +58,8 @@ target/
 
 ## Directory-based project format:
 .idea/
+
+# Databases
+*.sqlite
+*.db
+

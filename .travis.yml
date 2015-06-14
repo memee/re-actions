@@ -17,7 +17,7 @@ script:
   # command to run tests
   - "python setup.py -q test"
   # run behave tests
-  - "./run_tests.sh"
+  - "python setup.py behave_test"
   # build documentation
   - "pip install Sphinx"
   - "sphinx-build -nW -c docs/ -b html docs docs/_build/html"
