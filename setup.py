@@ -57,6 +57,7 @@ setup_requires = [
     'behave',
     'Sphinx',
     'PasteScript',
+    'WebTest',
 ]
 
 

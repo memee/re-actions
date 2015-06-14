@@ -51,3 +51,12 @@ def step_impl(context, status):
     :type context behave.runner.Context
     """
     pass
+
+
+@when("I open main index url")
+def step_impl(context):
+    """
+    :type context behave.runner.Context
+    """
+    response = context.app.get('/', status=200)
+    context.response = response.json

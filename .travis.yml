@@ -2,14 +2,25 @@ language: python
 python:
   - "2.7"
   - "3.4"
+
+addons:
+  postgresql: "9.3"
+
 # command to install dependencies
 install: "python setup.py -q install"
+
+before_script:
+  - cp .development.ini.travis development.ini
+  - psql -c 'create database travis_ci_test;' -U postgres
 
 script:
   # command to run tests
   - "python setup.py -q test"
   # run behave tests
-  - "python setup.py behave_test"
+  - "./run_tests.sh"
   # build documentation
   - "pip install Sphinx"
   - "sphinx-build -nW -c docs/ -b html docs docs/_build/html"
+
+# TODO: http://docs.travis-ci.com/user/speeding-up-the-build/
+# TODO: tox i.e. https://github.com/Pylons/pyramid/blob/master/tox.ini
