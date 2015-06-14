@@ -81,6 +81,9 @@ setup(name='reactions',
       test_suite='reactions',
       install_requires=requires,
       setup_requires=setup_requires,
+      extras_require={
+          'postgresql': 'psycopg2'
+      },
       cmdclass={
           'test': NoseTestCommand,
           'behave_test': setuptools_behave.behave_test

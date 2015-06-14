@@ -7,7 +7,7 @@ addons:
   postgresql: "9.3"
 
 # command to install dependencies
-install: "python setup.py -q install"
+install: "pip install -e .[postgresql]"
 
 before_script:
   - cp .development.ini.travis development.ini
