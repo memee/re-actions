@@ -10,6 +10,8 @@ pyramid.default_locale_name = en
 
 sqlalchemy.url = postgresql+psycopg2://postgres@localhost/travis_ci_test
 
+route_prefix = v1
+
 [server:main]
 use = egg:waitress#main
 host = 127.0.0.1

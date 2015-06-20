@@ -15,5 +15,6 @@ def main(global_config, **settings):
     Base.metadata.bind = engine
     config = Configurator(settings=settings)
     config.include("cornice")
+    config.route_prefix = settings.get('route_prefix')
     config.scan("reactions.views")
     return config.make_wsgi_app()
