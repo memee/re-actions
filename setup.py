@@ -58,6 +58,7 @@ setup_requires = [
     'Sphinx',
     'PasteScript',
     'WebTest',
+    'PyHamcrest',
 ]
 
 
