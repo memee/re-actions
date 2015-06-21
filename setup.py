@@ -1,7 +1,7 @@
 import os
 
 from setuptools import setup, find_packages
-from setuptools.command import test
+from setuptools.command.test import test as TestCommand
 import setuptools_behave
 
 
@@ -10,36 +10,26 @@ here = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(here, 'README.rst')) as f:
     README = f.read()
 
-# prepare for monkey patching test command
-# to make nose work with `setup.py test`
-# see: http://goo.gl/kq9CBs
-test._test = test.test
 
-
-# Based on example at
-# https://github.com/0compute/makeenv/blob/master/setup.py
-class NoseTestCommand(test._test):
-
-    user_options = test._test.user_options + [
-        ("args=", "a", "Arguments to pass to nose"),
-    ]
+class PyTestCommand(TestCommand):
+    user_options = [('pytest-args=', 'a', "Arguments to pass to py.test")]
 
     def initialize_options(self):
-        test._test.initialize_options(self)
-        self.args = None
+        TestCommand.initialize_options(self)
+        self.pytest_args = []
 
     def finalize_options(self):
-        test._test.finalize_options(self)
-        self.args = self.args and self.args.strip().split() or []
+        TestCommand.finalize_options(self)
+        self.test_args = []
         self.test_suite = True
 
     def run_tests(self):
-        try:
-            import nose
-        except ImportError:
-            raise Exception(
-                "You've tried to run command without nose installed")
-        nose.run_exit(argv=["nosetests"] + self.args)
+        # import here, cause outside the eggs aren't loaded
+        import pytest
+        import sys
+
+        errno = pytest.main(self.pytest_args)
+        sys.exit(errno)
 
 
 requires = [
@@ -53,7 +43,6 @@ requires = [
 ]
 
 setup_requires = [
-    'nose',
     'behave',
     'Sphinx',
     'PasteScript',
@@ -61,6 +50,9 @@ setup_requires = [
     'PyHamcrest',
 ]
 
+tests_require = [
+    'pytest'
+]
 
 setup(name='reactions',
       version=0.1,
@@ -82,11 +74,12 @@ setup(name='reactions',
       test_suite='reactions',
       install_requires=requires,
       setup_requires=setup_requires,
+      tests_require=tests_require,
       extras_require={
           'postgresql': 'psycopg2'
       },
       cmdclass={
-          'test': NoseTestCommand,
+          'test': PyTestCommand,
           'behave_test': setuptools_behave.behave_test
       },
       entry_points="""\
