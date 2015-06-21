@@ -20,4 +20,4 @@ Feature: User registration
       |          | John       | Kovac     | m@m.com |
       | a@a.com  | John       | Kovac     | m@m.com |
     When I post it to user registration url
-    Then I should get a warning with a "400" status
+    Then I should get a "incomplete data" warning with a "400" status
