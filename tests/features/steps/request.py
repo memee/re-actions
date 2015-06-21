@@ -1,8 +1,7 @@
-import json
 from behave import *
-from behave import model
-from hamcrest import assert_that, equal_to, is_
 
+from behave import model
+from hamcrest import assert_that, equal_to
 
 from tests.utils import reverse
 
@@ -62,6 +61,12 @@ def step_impl(context, warning, status):
     :type status: int
     """
     pass
+    # for response in context.responses:
+    #     message = response.json.get('message')
+    #
+    #     assert_that(message, is_(equal_to(warning)))
+    #     assert_that(response.status_code, is_(equal_to(status)))
+
 
 
 @when("I open main index url")
@@ -72,6 +77,14 @@ def step_impl(context):
     url = reverse(context.mapper, 'hello')
     response = context.test_app.get(url, status=200)
     context.response = response.json
+
+
+@when('I open a "{where}" url')
+def step_impl(context, where):
+    request_kwargs = getattr(context, 'request_kwargs', {})
+    context.response = context.test_app.get(
+        reverse(context.mapper, where, **request_kwargs)
+    )
 
 
 @when('I post "{what}" to the "{where}" url')

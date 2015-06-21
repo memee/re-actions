@@ -1,7 +1,7 @@
 import json
 
 from behave import *
-from hamcrest import assert_that, equal_to, has_key, all_of
+from hamcrest import assert_that, equal_to, has_key, all_of, has_entries
 
 
 use_step_matcher("parse")
@@ -150,3 +150,20 @@ def step_impl(context):
     :type context behave.runner.Context
     """
     pass
+
+
+@step("I should get same data in a response when I open a registered app url")
+def step_impl(context):
+    """
+    :type context behave.runner.Context
+    """
+    context.request_kwargs = {'api_key': 'apikey'}
+    context.execute_steps(
+        """When I open a "{where}" url""".format(where='userappresource')
+    )
+    expected = {
+        'APIKey': 'apikey',
+        'SecretKey': 'secretkey'
+    }
+
+    assert_that(context.response.json, has_entries(expected))

@@ -9,6 +9,7 @@ Feature: Developer app registration
     When I post "data" to the "app registration" url
     Then I get an APIKey and a SecretKey in a response
     And the response has "201" status
+    And I should get same data in a response when I open a registered app url
 
   Scenario: Incomplete data input
     Given app registration data
