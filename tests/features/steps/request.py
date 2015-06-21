@@ -1,9 +1,11 @@
+import sys
 from behave import *
 
 from behave import model
 from hamcrest import assert_that, equal_to
 
-from tests.utils import reverse
+# noinspection PyUnresolvedReferences
+from utils import reverse
 
 
 use_step_matcher("parse")

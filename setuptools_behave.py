@@ -164,4 +164,8 @@ class behave_test(Command):
             cmd_options += " %s" % path
         self.announce("CMDLINE: %s %s" % (behave, cmd_options), level=3)
 
+        # add test directory to the path
+        test_path = os.path.join(os.path.dirname(__file__), 'tests')
+        sys.path.insert(0, test_path)
+
         return behave_main.main(args=cmd_options)
