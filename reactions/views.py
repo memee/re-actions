@@ -1,20 +1,10 @@
 """ Cornice services.
 """
-from cornice import Service
 from cornice.resource import resource
 from reactions.models import (
-    DBSession, MyModel
+    DBSession,
 )
 
-
-hello = Service(name='hello', path='/', description="Simplest app")
-
-
-@hello.get()
-def get_info(request):
-    """Returns Hello in JSON."""
-    model = DBSession.query(MyModel).one()
-    return {model.name: model.value}
 
 
 @resource(collection_path='/userapp', path='/userapp/{key}')
