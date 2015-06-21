@@ -1,5 +1,6 @@
 from pyramid import testing
 from pyramid.paster import get_appsettings
+from pyramid.request import Request
 from sqlalchemy import orm
 from webtest import TestApp
 
@@ -17,7 +18,7 @@ def before_all(context):
     context.config.setup_logging()
 
     context.settings = get_appsettings('development.ini')
-    context.app = TestApp(main({}, **context.settings))
+    context.test_app = TestApp(main({}, **context.settings))
     context.engine = models.DBSession.bind
 
     # create all tables
@@ -36,6 +37,11 @@ def before_scenario(context, scenario):
     models.DBSession.configure(bind=connection)
     context.session = context.Session(bind=connection)
     models.Base.session = context.session
+
+    context.pyramid_config = testing.setUp()
+    context.request = Request.blank('/')
+    context.request.registry = context.test_app.app.registry
+    context.mapper = context.test_app.app.routes_mapper
 
 
 def after_scenario(context, scenario):

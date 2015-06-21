@@ -1,4 +1,8 @@
+import json
+
 from behave import *
+from hamcrest import assert_that, equal_to, has_key, all_of
+
 
 use_step_matcher("parse")
 
@@ -24,7 +28,7 @@ def step_impl(context):
     """
     :type context behave.runner.Context
     """
-    pass
+    context.post_data = context.table
 
 
 @when("I post it to the app registration url")
@@ -40,7 +44,10 @@ def step_impl(context):
     """
     :type context behave.runner.Context
     """
-    pass
+    for response in context.responses:
+        body = json.loads(response.body.decode('utf-8'))
+        has_keys = all_of(has_key('APIKey'), has_key('SecretKey'))
+        assert_that(body, has_keys)
 
 
 @then("the request is {authenticated}")
