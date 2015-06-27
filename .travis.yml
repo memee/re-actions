@@ -10,6 +10,7 @@ install:
 before_script:
   - cp .development.ini.travis development.ini
   - psql -c 'create database travis_ci_test;' -U postgres
+  - sudo pip install virtualenv
 
 script:
   # command to run tests
