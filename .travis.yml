@@ -15,11 +15,11 @@ script:
   # command to run tests
   - "python setup.py test -a '-e ${TOXENV}'"
 
- env:
-   - TOXENV=py27
-   - TOXENV=py34
-   - TOXENV=behave
-   - TOXENV=py2-docs
-   - TOXENV=py3-docs
+env:
+  - TOXENV=py27
+  - TOXENV=py34
+  - TOXENV=behave
+  - TOXENV=py2-docs
+  - TOXENV=py3-docs
 
 # TODO: http://docs.travis-ci.com/user/speeding-up-the-build/
