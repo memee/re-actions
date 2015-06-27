@@ -6,7 +6,6 @@ addons:
 # command to install dependencies
 install:
   - pip install virtualenv
-  - pip install -q -e .[postgresql]
 
 before_script:
   - cp .development.ini.travis development.ini
