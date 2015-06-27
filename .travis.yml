@@ -1,7 +1,5 @@
 language: python
-python:
-  - "2.7"
-  - "3.4"
+python: "2.7"
 
 addons:
   postgresql: "9.3"
@@ -15,12 +13,13 @@ before_script:
 
 script:
   # command to run tests
-  - "python setup.py test"
-  # run behave tests
-  - "python setup.py behave_test"
-  # build documentation
-  - "pip install Sphinx"
-  - "sphinx-build -nW -c docs/ -b html docs docs/_build/html"
+  - "python setup.py test -a '-e ${TOXENV}'"
+
+ env:
+   - TOXENV=py27
+   - TOXENV=py34
+   - TOXENV=behave
+   - TOXENV=py2-docs
+   - TOXENV=py3-docs
 
 # TODO: http://docs.travis-ci.com/user/speeding-up-the-build/
-# TODO: tox i.e. https://github.com/Pylons/pyramid/blob/master/tox.ini

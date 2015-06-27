@@ -59,6 +59,10 @@ tests_require = [
     'tox'
 ]
 
+docs_extras = [
+    'Sphinx'
+]
+
 setup(name='reactions',
       version=0.1,
       description='reactions',
@@ -81,7 +85,8 @@ setup(name='reactions',
       setup_requires=setup_requires,
       tests_require=tests_require,
       extras_require={
-          'postgresql': 'psycopg2'
+          'postgresql': 'psycopg2',
+          'docs': docs_extras,
       },
       cmdclass={
           'test': ToxCommand,
