@@ -1,4 +1,8 @@
-import sys
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 from behave import *
 
 from behave import model
@@ -102,6 +106,3 @@ def step_impl(context, what, where):
         context.responses.append(
             context.test_app.post(url, context.post_data)
         )
-
-
-
