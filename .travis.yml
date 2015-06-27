@@ -5,7 +5,7 @@ addons:
 
 # command to install dependencies
 install:
-  - sudo pip install virtualenv
+  - pip install virtualenv
   - pip install -q -e .[postgresql]
 
 before_script:
