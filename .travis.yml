@@ -1,11 +1,11 @@
 language: python
-python: "2.7"
 
 addons:
   postgresql: "9.3"
 
 # command to install dependencies
-install: "pip install -q -e .[postgresql]"
+install:
+  - pip install -q -e .[postgresql]
 
 before_script:
   - cp .development.ini.travis development.ini
@@ -13,7 +13,7 @@ before_script:
 
 script:
   # command to run tests
-  - "python setup.py test -a '-e ${TOXENV}'"
+  - python setup.py test -a "-e ${TOXENV}"
 
 env:
   - TOXENV=py27
