@@ -15,7 +15,7 @@ before_script:
 
 script:
   # command to run tests
-  - "python setup.py -q test"
+  - "python setup.py test"
   # run behave tests
   - "python setup.py behave_test"
   # build documentation
